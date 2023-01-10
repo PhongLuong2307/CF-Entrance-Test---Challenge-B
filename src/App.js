@@ -3,6 +3,7 @@ import './App.css';
 
 function App() {
   const [errorText, setErrorText] = useState('');
+  const [color, setColor] = useState('');
   const [result, setResult] = useState('where magic happens');
   const [decimalNumber, setDecimalNumber] = useState('');
 
@@ -12,8 +13,9 @@ function App() {
 
     let isInterger = Number.isInteger(currentNumber);
 
-    if (isInterger === false || currentNumber > 3000) {
+    if (isInterger === false || currentNumber > 3000 || event.target.value === '') {
       setErrorText('Your number must be integer and lower than 3000.');
+      setColor('#dc3545');
     } else if (isInterger === true && currentNumber <= 3000) {
       let decimalValue = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
       let romanValue = ['M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I'];
@@ -28,7 +30,8 @@ function App() {
       }
 
       setResult(romanNumber);
-      setErrorText('');
+      setErrorText('Looks good!');
+      setColor('#28a745');
     }
   }
 
@@ -49,7 +52,11 @@ function App() {
                 onChange={handleChangeNumber}
                 placeholder='Enter your decimal number'
               />
-              <div className='error-text'>{errorText}</div>
+              <div
+              style={{
+                color: `${color}`
+              }}
+               className='error-text'>{errorText}</div>
             </div>
 
             <div className='form-group'>
